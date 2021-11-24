@@ -12,6 +12,12 @@ import kotlin.coroutines.suspendCoroutine
 object SunnyWeatherNetwork{
     //创建了PlaceService 的动态代理
     private  val  placeService = ServiceCreator.create(PlaceService::class.java)
+    //创建weatherService 的动态代理
+    private  val weatherService =ServiceCreator.create(WeatherService::class.java)
+
+
+    suspend fun getDailyWeather(lng: String, lat: String) = weatherService.getDailyWeather(lng, lat).await()
+    suspend fun getRealtimeWeather(lng: String, lat: String) = weatherService.getRealtimeWeather(lng, lat).await()
 
     //suspend 协程关键字
 //    作用是:[提醒]
@@ -36,5 +42,7 @@ object SunnyWeatherNetwork{
             })
         }
     }
+
+
 
 }
